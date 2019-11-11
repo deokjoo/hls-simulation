@@ -1,9 +1,10 @@
 import numpy as np
 from hls.fileIO import *
-'''
-'''
 
-class fileIO:
+'''
+class for binary file reader
+'''
+class fileIOReader:
     def __init__(self, w, h, name, dtype):
         self.w     = w
         self.h     = h
@@ -31,15 +32,43 @@ class fileIO:
         self.index += 1
         return n    
     
+'''
+class for binary file reader
+'''
+class fileIOWriter:
+    def __init__(self, w, h, name, dtype):
+        self.w     = w
+        self.h     = h
+        self.name  = name
+        self.dtype = dtype
+        self.seq   = []
+        
+    def __enter__(self):
+        return self
+    def __exit__(self, type, value, traceback):
+        self._save()
+        
+    '''
+    '''    
+    def addFrame(self, img):
+        self.seq.append(img)
     
     '''
-    '''
-    if __name__ == '__main__':
-        src = "/home/joo/work/eclipse/python/img/1.bin"
-        seq = fileIO(320, 240, src, "uint16")
-        
+    '''  
+    def _save(self):
+        np.stack(self.seq).astype(self.dtype).tofile(self.name)
+    
+'''
+'''
+if __name__ == '__main__':
+    src = "/home/joo/work/eclipse/python/img/1.bin"
+    dst = "/home/joo/work/eclipse/python/img/2.bin"
+    
+    with fileIOWriter(320, 240, dst, "uint16") as wrt:
+        seq = fileIOReader(320, 240, src, "uint16")
         for img in seq:
-            print(img.shape)
+            wrt.addFrame(img)
+    
     
     
     
