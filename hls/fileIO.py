@@ -56,6 +56,9 @@ class fileIOWriter:
     '''
     '''  
     def _save(self):
+        '''
+        check whether list is empty..
+        '''
         np.stack(self.seq).astype(self.dtype).tofile(self.name)
     
 '''
