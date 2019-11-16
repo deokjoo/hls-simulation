@@ -1,11 +1,9 @@
-
 from hls.fileIO import *
 
 '''
 https://jupiny.com/2016/09/25/decorator-class/ 
 '''
 class filter():
-#     def __init__(self, src, dst, w, h, dtype): *args
     def __init__(self, *args):
         self.src   = args[1]
         self.dst   = args[2]
@@ -20,27 +18,36 @@ class filter():
         with fileIOWriter(self.w, self.h, self.dst, "uint16") as wrt:
             seq = fileIOReader(self.w, self.h, self.src, "uint16")
             for img in seq:
-                tmp = self.operation(img)
+                tmp = self.frame_op(img)
                 wrt.addFrame(tmp)
     '''
     '''
-    def operation(self, img):
+    def frame_op(self, img):
         print("hello..")
         return img         
 
 '''
- filter for kernel operation
+ filter for kernel frame_op
 '''
 class filterKernel(filter):
     def __init__(self, kernel, *args):
         super().__init__(self, *args)
         
-        self.kernel = 3
+        self.kernel = kernel
+        self.pading = int((self.kernel - 1) / 2)
 
-    def operation(self, img):
-        print("hello filter with padding bufffer")
-        pad_img = img
-        return img   
+    def frame_op(self, img):     
+        dst_img = np.zeros_like(img)
+        pad_img = np.pad(img, (self.pading, self.pading), 'edge')
+        
+        for y,x in product(range(self.h), range(self.w)):
+            patch = pad_img[y:y+self.kernel, x:x+self.kernel]
+            dst_img[y][x] = self.operation(patch)
+          
+        return dst_img  
+          
+    def operation(self, patch):
+        return patch[self.pading][self.pading]
 
 
 '''
