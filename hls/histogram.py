@@ -28,8 +28,6 @@ class ip_ahe(filterWrapper):
     def st(self, img  ):
         self.hist,self.index  = np.histogram(img, bins=range(16*1024))
 
-
-
 '''
 '''
 if __name__ == '__main__':
