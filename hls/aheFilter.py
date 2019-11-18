@@ -18,7 +18,7 @@ class ip_ahe(filterWrapper):
     '''
     opeation for pixel
     '''
-    def op(self, patch):
+    def op(self, patch, y, x):
         cur_pix = patch[0][self.pading][self.pading]
         return self.hist[cur_pix]   
     

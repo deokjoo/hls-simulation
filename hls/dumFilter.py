@@ -15,8 +15,11 @@ class ip_dummmy(filterWrapper):
     
     '''
     opeation for pixel
+    patch[ 1] : nxt
+    patch[ 0] : current
+    patch[-1] : prv
     '''
-    def op(self, patch):
+    def op(self, patch, y, x):
         return 0 
     
     '''

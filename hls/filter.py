@@ -52,7 +52,7 @@ class filter():
         
         for y,x in product(range(self.h), range(self.w)):
             patch = [pad_img[y:y+self.kernel, x:x+self.kernel] for pad_img in pad_seq]
-            dst_img[y][x] = op(patch)
+            dst_img[y][x] = op(patch, y, x)
           
         return dst_img  
          
