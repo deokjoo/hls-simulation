@@ -56,7 +56,27 @@ class filter():
           
         return dst_img  
          
+'''
+'''
+class filterWrapper():
+    def __init__(self, src, w, h):
+        pass
+    '''
+    '''
+    def do(self):
+        self.filter.method(self.st, self.op)
 
+    '''
+    opeation for pixel
+    '''
+    def op(self, patch):
+        return 0
+    
+    '''
+    statitic for image
+    '''
+    def st(self, img  ):
+        pass
 
 # '''
 # '''
