@@ -8,15 +8,19 @@ import numpy as np
 samplef for filter
 '''
 class ip_nuc(filterWrapper):
-    def __init__(self, src, w, h):         
-        self.filter = filter(src, src+".ahe", w, h, 0, 1, "uint16")
+    def __init__(self, src, w, h):
+        self.dst    =  src+".nuc"        
+        self.filter = filter(src, self.dst, w, h, 0, 1, "uint16")
         
+        '''
+        private
+        '''
         self.coeff = np.fromfile("./coeff/nuc.coeff",dtype="uint32").reshape(h, w)
-    
+        
     '''
     opeation for pixel
     '''
-    def op(self, patch, y, x):
+    def op(self, patch, i, y, x):
         gain = int((self.coeff[y][x] >> 16) & 0xFFFF)
         off  = int((self.coeff[y][x] >>  0) & 0xFFFF)
         cur = patch[0][0][0]

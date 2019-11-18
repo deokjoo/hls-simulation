@@ -40,19 +40,20 @@ class filter():
                 '''
                 for rtl sequence matching( current frame using previous frame's statistics
                 '''
-                wrt.addFrame(self.frame_op(seqs, op))                       
-                st(img)   
+                wrt.addFrame(self.frame_op(seqs, i, op))                       
+                st(img)
+                   
     '''
     processing..
     '''
-    def frame_op(self, seqs, op):     
+    def frame_op(self, seqs, i, op):     
         dst_img = np.zeros_like(seqs[0])
         
         pad_seq = [np.pad(img, (self.pading, self.pading), 'edge') for img in seqs]
         
         for y,x in product(range(self.h), range(self.w)):
             patch = [pad_img[y:y+self.kernel, x:x+self.kernel] for pad_img in pad_seq]
-            dst_img[y][x] = op(patch, y, x)
+            dst_img[y][x] = op(patch, i, y, x)
           
         return dst_img  
          

@@ -8,17 +8,18 @@ import numpy as np
 '''
 class ip_ahe(filterWrapper):
     def __init__(self, src, w, h):
+        self.dst    =  src+".ahe" 
         self.pading = 3
         self.kernel = self.pading * 2 + 1
                 
-        self.filter = filter(src, src+".ahe", w, h, 0, self.kernel, "uint16")
+        self.filter = filter(src, self.dst, w, h, 0, self.kernel, "uint16")
         
         self.hist = np.ones(((16*1024)))
 
     '''
     opeation for pixel
     '''
-    def op(self, patch, y, x):
+    def op(self, patch, i, y, x):
         cur_pix = patch[0][self.pading][self.pading]
         return self.hist[cur_pix]   
     
