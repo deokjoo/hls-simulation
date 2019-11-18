@@ -36,10 +36,12 @@ class filter():
                 else:
                     seqs = np.roll(seqs, -1)
                     seqs[self.t] = img
- 
-                st(img)
-                wrt.addFrame(self.frame_op(seqs, op))
-    
+                 
+                '''
+                for rtl sequence matching( current frame using previous frame's statistics
+                '''
+                wrt.addFrame(self.frame_op(seqs, op))                       
+                st(img)   
     '''
     processing..
     '''
