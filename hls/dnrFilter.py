@@ -36,3 +36,15 @@ if __name__ == '__main__':
     adder = ip_dnr(src, 320, 240)
     adder.do()    
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

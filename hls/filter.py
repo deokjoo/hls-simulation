@@ -19,8 +19,7 @@ class filter():
         self.dtype = args[6]
         
         self.pading = int((self.kernel - 1) / 2)
-                
-        print(self.src)
+            
     '''
     '''
     def method(self, st, op=default_op):
